@@ -1,15 +1,12 @@
 # main links
 main:
-  sidebar-category:
-  - title: "카테고리"
-    children:
-      - title: "java"
-        url: "/java"
-      - title: "javaScript"
-        url:  "/javaScript"
-      - title: "docker"
-        url:  "/docker"
-      - title: "android"
-        url:  "/android"
-      - title: "machin_learning"
-        url:  "/machin_learning"
+  - title: "Quick-Start Guide"
+    url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
+  # - title: "About"
+  #   url: https://mmistakes.github.io/minimal-mistakes/about/
+  # - title: "Sample Posts"
+  #   url: /year-archive/
+  # - title: "Sample Collections"
+  #   url: /collection-archive/
+  # - title: "Sitemap"
+  #   url: /sitemap/
