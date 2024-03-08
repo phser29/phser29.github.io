@@ -13,7 +13,6 @@ toc: true
 npx create-react-app 프로젝트이름&버전
 ```
 
-- 필터는 배열을 반환
-const found = cart.filter((el) => el.id === id)[0];
+
 
 

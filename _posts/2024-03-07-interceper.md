@@ -13,7 +13,7 @@ toc: true
 이 Interceptor는  Controller를 호출하기 전과 후에 요청과 응답을 참조하거나 가공할 수 있는 일종의 필터
 
 ## 인터셉터란
-컨트롤러(Controller)의 '핸들러(Handler)'를 호출하기 전과 후에 요청과 응답을 참조하거나 가공할 수 있는 일종의 필터
+컨트롤러(Controller)의 '핸들러(Handler)'를 호출하기 전과 후에 요청과 응답을 참조하거나 가공할 수 있는 일종의 필터<br><br>
 
 스프링에서 제공해주는 HandlerInterceptor 인터페이스와 HandlerInterceptorAdapter 추상 클래스에 정의되어 있는 메서드는 
 preHandle(), postHandle(), afterCompletion() 3가지. 
@@ -83,23 +83,6 @@ preHandle(), postHandle(), afterCompletion() 3가지.
 	}
 ```
 
-## JSON 테이터 변환
 
-JSON.parse() : 메서드는 JSON 문자열의 구문을 분석하고, 그 결과에서 JavaScript 값이나 객체를 생성
-
-```
-// 라이브러리 추가
-<dependency>
-    <groupId>com.fasterxml.jackson.core</groupId>
-    <artifactId>jackson-databind</artifactId>
-    <version>2.12.1</version>
-</dependency>
-
-// 리스트 변환
-ObjectMapper objm = new ObjectMapper();
-String cateList = objm.writeValueAsString(list);
-model.addAttribute("cateList", cateList);
-
-```
 
 
