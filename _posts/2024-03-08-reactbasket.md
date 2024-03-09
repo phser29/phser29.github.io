@@ -59,3 +59,28 @@ const setQuantity = (id, quantity) => {
 ```
 *필터는 배열을 반환*
 
+- 리액트 체크박스 리스트
+```
+const handleCheckList = (checked, id) => {
+  if(checked) {
+    setCheckLists([...checkLists, id]);
+  } else {
+    setCheckLists(checkLists.map((check) => check !== id));
+  }
+}
+```
+
+- 리엑트 체크박스 전체 선택 함수
+
+state로 선택 함수를 만들어 적용
+```
+const handleAllCheck = (checked) => {
+  if(checked) {
+    const cartItems = [];
+    cart.map((cart) => cartItems.push(cart.id))
+    setCheckLists(cartItems);
+  } else {
+    setCheckLists([]);
+  }
+}
+```
