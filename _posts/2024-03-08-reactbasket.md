@@ -9,6 +9,10 @@ toc: true
 # (JSON) 쇼핑몰 장바구니
 
 ## JSON 상품 출력
+
+- axios를 활용하여 json 데이터 조회
+- find 함수로 id 값과 일치하는 데이터 출력 
+
 ```
 // 훅으로 상품 지속적으로 출력
 useEffect(() => {
@@ -16,10 +20,12 @@ useEffect(() => {
     setProduct(data.data.products.find((product) => product.id === parseInt(id)))
   })
 }, [id]);
-
-
 ```
+
 ## 장바구니 추가
+
+- JS 객체를 생성하여 장바구니 클릭 시 해당 정보가 장바구니로 넘어가서 배열에 저장
+
 ```
 const handleCart = () => {
   const cartItem = {
@@ -41,6 +47,9 @@ const handleCart = () => {
 ```
 
 ## 장바구니 중복 제한
+
+- 배열로 넘어간 데이터와 일치하는 id가 있으면 다음 공간으로 저장
+
 ```
 const setQuantity = (id, quantity) => {
   const found = cart.filter((el) => el.id === id)[0];
@@ -60,6 +69,7 @@ const setQuantity = (id, quantity) => {
 *필터는 배열을 반환*
 
 - 리액트 체크박스 리스트
+
 ```
 const handleCheckList = (checked, id) => {
   if(checked) {
@@ -71,8 +81,8 @@ const handleCheckList = (checked, id) => {
 ```
 
 - 리엑트 체크박스 전체 선택 함수
+- state로 선택 함수 적용
 
-state로 선택 함수를 만들어 적용
 ```
 const handleAllCheck = (checked) => {
   if(checked) {
