@@ -108,6 +108,7 @@ author:
   bio              : "만공자의 기술 블로그"
   location         : "Korea"
   email            :
+  git              : "https://github.com/phser29"
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"

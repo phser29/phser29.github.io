@@ -80,6 +80,7 @@ makeCateArray(cate3Obj,cate3Array,cateList,3);
 - 대분류
 
 ```
+// tier1의 정보 호출
 for(let i = 0; i < cate1Array.length; i++){
 	cateSelect1.append("<option value='"+cate1Array[i].cateCode+"'>" + cate1Array[i].cateName + "</option>");
 }
@@ -88,11 +89,33 @@ for(let i = 0; i < cate1Array.length; i++){
 - 중분류
 
 ```
-
+$(cateSelect1).on("change", function () {
+	let selectVal1 = $(this).find("option:selected").val();
+	cateSelect2.children().remove();
+	cateSelect2.append("<option value='none'>선택</option>");
+	
+	// 대분류의 cateParent와 일치하는 tier2의 정보 호출
+	for(let i=0; i<cate2Array.length; i++) {
+		if(selectVal1 === cate2Array[i].cateParent) {
+			cateSelect2.append("<option value='"+cate2Array[i].cateCode+"'>" + cate2Array[i].cateName + "</option>");
+		}
+	}
+});
 ```
 
 - 소분류
 
 ```
-
+$(cateSelect2).on("change", function() {
+ 	let selectVal2 = $(this).find("option:selected").val();
+	cateSelect3.children().remove();
+	cateSelect3.append("<option value='none'>선택</option>");
+	
+	for(let i=0; i<cate3Array.length; i++) {
+		if(selectVal2 === cate3Array[i].cateParent) {
+			cateSelect3.append("<option value='"+cate3Array[i].cateCode+"'>"+cate3Array[i].cateName+"</option>");
+		}
+	}
+});
 ```
+
