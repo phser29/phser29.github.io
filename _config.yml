@@ -109,8 +109,8 @@ author:
   location         : "Korea"
   email            :
   links:
-    - label: "Email"
-      icon: "fas fa-fw fa-envelope-square"
+    - label: "quaj628@gmail.com"
+      icon: "fas fa-fw fa-envelope-square "
       url: "quaj628@gmail.com"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
