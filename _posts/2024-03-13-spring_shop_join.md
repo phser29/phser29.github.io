@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "spring memberJoin"
+title: "spring join"
 categories: java
 tag: spring_shop
 toc: true

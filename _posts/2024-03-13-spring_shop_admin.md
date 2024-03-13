@@ -1,12 +1,13 @@
 ---
 layout: single
-title: "spring memberJoin"
+title: "spring admin"
 categories: java
 tag: spring_shop
 toc: true
 ---
 
 ## 관리자 페이지
+
 
 ### 작가 페이지
 
