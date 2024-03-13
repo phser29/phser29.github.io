@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "JPA Docker"
+title: "JPA"
 categories: java
 tag: spring
 toc: true
