@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "spring admin"
+title: "spring basket"
 categories: java
 tag: spring_shop
 toc: true
