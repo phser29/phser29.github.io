@@ -2,7 +2,7 @@
 layout: single
 title: "springboot_wms"
 categories: java
-tag: spring
+tag: springboot_wms
 toc: true
 ---
 

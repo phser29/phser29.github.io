@@ -6,6 +6,12 @@ tag: react
 toc: true
 ---
 
-# react(TS) 트렐로 프로젝트
+# 프로젝트 소개
+- 프로젝트 이름: react 트렐로 프로젝트
+- 프로젝트 기술: react, TypeScript, node.js, mongoDB
+- 프로젝트 인원: 1명
+- 프로젝트 선정 이유: node.js와 몽고디비 활용 분석
+
+
 
 

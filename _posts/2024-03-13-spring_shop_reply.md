@@ -6,4 +6,4 @@ tag: spring_shop
 toc: true
 ---
 
-# 주문기능
+# 댓글기능
