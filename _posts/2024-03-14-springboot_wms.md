@@ -1,17 +1,14 @@
 ---
 layout: single
-title: "git"
-categories: git
-tag: other
+title: "springboot_wms"
+categories: java
+tag: spring
 toc: true
 ---
 
-# spring을 활용한 쇼핑몰
+# 프로젝트 소개
+- 프로젝트 이름: springboot wms 프로젝트
+- 프로젝트 기술: java, springboot, H2DB, jpa, jquery, ajax
+- 프로젝트 인원: 1명
+- 프로젝트 선정 이유: 회사에서 대두되는 그룹웨어 분석
 
-## 회원가입
-
-## 로그인
-
-## 관리자 페이지
-
-## 

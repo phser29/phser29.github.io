@@ -1,17 +1,11 @@
 ---
 layout: single
-title: "git"
-categories: git
-tag: other
+title: "react_tralo"
+categories: javaScript
+tag: react
 toc: true
 ---
 
-# spring을 활용한 쇼핑몰
+# react(TS) 트렐로 프로젝트
 
-## 회원가입
 
-## 로그인
-
-## 관리자 페이지
-
-## 
