@@ -66,7 +66,6 @@ const setQuantity = (id, quantity) => {
   setCart([...cart.slice(0, idx), cartItem, ...cart.slice(idx + 1)])
 }
 ```
-*필터는 배열을 반환*
 
 - 리액트 체크박스 리스트
 

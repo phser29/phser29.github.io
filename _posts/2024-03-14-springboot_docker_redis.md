@@ -2,7 +2,7 @@
 layout: single
 title: "springboot_docker_redis"
 categories: java
-tag: spring
+tag: springboot_docker_redis
 toc: true
 ---
 
