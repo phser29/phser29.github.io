@@ -1,12 +1,13 @@
 ---
 layout: single
-title: "springboot_docker"
+title: "springboot_docker_redis"
 categories: java
 tag: spring
 toc: true
 ---
 
-# springboot와 docker redis 활용
+# springboot docker, redis
+
 
 
 
