@@ -18,14 +18,14 @@ minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt"
 locale                   : "en-US"
 title                    : "phser29"
 title_separator          : "|"
-subtitle                 : "react, spring another level"
+subtitle                 : "Node.js, Java another level"
 name                     : "mangoja"
 description              : "An amazing website."
 url                      : "https://phser29.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
-logo                     : "/assets/images/spring&react.png"
+logo                     : "/assets/images/image.png"
 masthead_title           : # overrides the website title displayed in the masthead, use " " for no title
 # breadcrumbs            : false # true, false (default)
 words_per_minute         : 200
@@ -103,9 +103,9 @@ analytics:
 
 # Site Author
 author:
-  name             : "Mangoja"
+  name             : "Park Hyun Ser"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "만공자의 기술 블로그"
+  bio              : "박현서의 기술 블로그"
   location         : "Korea"
   email            :
   links:
