@@ -2,7 +2,7 @@
 layout: single
 title: "react_tralo"
 categories: javaScript
-tag: react
+tag: react_tralo
 toc: true
 ---
 
