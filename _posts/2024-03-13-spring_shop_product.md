@@ -63,7 +63,7 @@ let cateSelect3 = $(".cate3");
 ```
 
 - 카테고리 배열 해당 클레스에 적용
-
+- 같은 티어끼리 비교 후에 obj에 저장
 ```
 function makeCateArray(obj, array, cateList, tier){
 	for(let i = 0; i < cateList.length; i++){
