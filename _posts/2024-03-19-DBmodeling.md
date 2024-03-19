@@ -1,11 +1,10 @@
 ---
 layout: single
-title: "SQL"
+title: "DBmodeling"
 categories: DataBase
 tag: DB
 toc: true
---- 
+---
 
-# SQL 
-
+# react hock
 
