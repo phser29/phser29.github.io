@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "spring product"
+title: "spring product imge"
 categories: java
 tag: spring_shop
 toc: true

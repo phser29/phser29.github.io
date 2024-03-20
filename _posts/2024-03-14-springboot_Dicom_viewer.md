@@ -10,5 +10,5 @@ toc: true
 
 - 워클리스트에서 리스트 클릭시 해당 리스트에 있는 이미지 출력
 
-> <img src="../assets/images/Dicom01.png" />
+ <img src="../assets/images/Dicom01.png" />
 
