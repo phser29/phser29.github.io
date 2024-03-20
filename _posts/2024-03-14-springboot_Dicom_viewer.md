@@ -10,5 +10,5 @@ toc: true
 
 - 워클리스트에서 리스트 클릭시 해당 리스트에 있는 이미지 출력
 
-![Alt text](../assets/images/Dicom01.png)
+![](../assets/images/Dicom01.png){: width="50%", height="50%"}
 

@@ -18,5 +18,5 @@ toc: true
 - 워크리스트의 리스트를 조회하는 화면
 - DB는 업체에서 서버를 넘겨줘서 사용함으로 테이블 구조는 알 수 없음
 
-![Alt text](../assets/images/Dicom02.png)
+![](../assets/images/Dicom02.png){: width="50%", height="50%"}
 
