@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "react_tralo"
+title: "react_tralo_login"
 categories: javaScript
 tag: react_tralo
 toc: true
