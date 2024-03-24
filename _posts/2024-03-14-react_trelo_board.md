@@ -1,12 +1,12 @@
 ---
 layout: single
-title: "react_tralo_board"
+title: "react_trelo_board"
 categories: javaScript
-tag: react_tralo
+tag: react_trelo
 toc: true
 ---
 
-# react_tralo_board
+# react_trelo_board
 
 
 

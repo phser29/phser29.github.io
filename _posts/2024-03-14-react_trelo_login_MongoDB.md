@@ -1,12 +1,12 @@
 ---
 layout: single
-title: "react_tralo_MongoDB"
+title: "react_trelo_MongoDB"
 categories: javaScript
-tag: react_tralo
+tag: react_trelo
 toc: true
 ---
 
-# react_tralo_MongoDB
+# react_trelo_MongoDB
 
 
 
