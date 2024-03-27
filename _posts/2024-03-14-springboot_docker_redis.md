@@ -51,5 +51,9 @@ services:
   - redishash("") 지원
 
 
+## springboot_shop_setting
 
+- 의존주입
+  - lombok
+  - 
 
