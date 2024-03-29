@@ -1,17 +1,11 @@
 ---
 layout: single
-title: "express"
-categories: javaScript
-tag: node.js
+title: "springSessionJWT"
+categories: java
+tag: spring
 toc: true
 ---
 
-# express
+# springboot login
 
-- 설치
-> npm install express --save
-
-- EJS
-- 설치하면 특정 변수나 include를 사용가능
-> npm i ejs
 
