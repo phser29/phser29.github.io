@@ -29,5 +29,35 @@ public class Account {
 }
 ```
 
+- ui가 없는구조에서 static 메소드로 값 입력
 
+```
+public static Account mapToAccount(AccountDto accountDto) {
+		Account account = new Account(
+					accountDto.getId(),
+					accountDto.getAccountHolderName(),
+					accountDto.getBalance()
+				);
+			
+		return account;
+	}
+```
 
+- jpa 특성으로 쿼리 없이 CRUD 구현가능
+- service 비즈니스 로직 입력
+
+```
+@Service
+@AllArgsConstructor
+public class AccountServiceImpl implements AccountService {
+	
+	private AccountRepository accountRepository;
+	
+	@Override
+	public AccountDto creaeteAccount(AccountDto accountDto) {
+		Account account = AccountMapper.mapToAccount(accountDto);
+		Account savedAccount = accountRepository.save(account);
+		return AccountMapper.mapToAccountDto(savedAccount);
+	}	
+}
+```
