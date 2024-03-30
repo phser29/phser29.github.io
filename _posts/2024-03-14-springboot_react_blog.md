@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "springboot_react"
+title: "springboot_react_blog"
 categories: java
 tag: springboot_react
 toc: true
@@ -11,6 +11,29 @@ toc: true
 - 프로젝트 기술: java, springboot, mysql, jpa, react
 - 프로젝트 인원: 1명
 - 프로젝트 선정 이유: springboot와 react 결합 정도 분석
+
+## 중요사항
+
+- 프록시 설정(포트가 다름)
+> npm install http-proxy-middleware --save
+
+- 경로
+
+```
+src/main/fronted/src/setupProxy.js
+
+const { createProxyMiddleware } = require('http-proxy-middleware');
+
+module.exports = function(app) {
+  app.use(
+    '/api',
+    createProxyMiddleware({
+      target: 'http://localhost:8080',	// 서버 URL or localhost:설정한포트번호
+      changeOrigin: true,
+    })
+  );
+};
+```
 
 # login(로그인), 
 
