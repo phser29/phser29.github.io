@@ -272,3 +272,169 @@ public class CloneArray {
 
 ### 배열 요소의 최댓값 구하기
 
+```
+public class MaxOfArrayRand {
+	private static int maxOf(int[] a) {
+		int max = a[0];
+		
+		for(int i=0; i<a.length-1; i++) {
+			if(a[i] > max) {
+				max = a[i];
+			}
+		}
+		
+		return max;
+	}
+	
+	public static void main(String[] args) {
+		Random ran = new Random();
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.println("키의 최댓값을 구합니다.");
+		System.out.print("사람 수: ");
+		int num = scan.nextInt();
+		
+		int[] height = new int[num];
+		
+		System.out.println("키 값은 아래와 같습니다.");
+		for(int i=0; i<num; i++) {
+			height[i] = 100 + ran.nextInt(90);
+			System.out.println("height[" +i+ "] : " + height[i]);
+		}
+		
+		System.out.println("최댓값은 " +maxOf(height)+ "입니다.");
+	}
+}
+```
+
+### 배열 값 교환
+
+```
+public class ReverserArray {
+	static void swap(int[] a, int idx1, int idx2) {
+		int t = a[idx1];
+		a[idx1] = a[idx2];
+		a[idx2] = t;
+	}
+	
+	static void reverse(int[] a) {
+		for(int i=0; i<a.length/2; i++) {
+			swap(a, i, a.length - i - 1);
+		}
+	}
+	
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.println("요솟수: ");
+		int num = scan.nextInt();
+		
+		int[] x = new int[num];
+		
+		for(int i=0; i<num; i++) {
+			System.out.println("x[" + i + "] : ");
+			x[i] = scan.nextInt();
+		}
+		
+		reverse(x);
+		
+		System.out.println("요소를 역순으로 정렬했습니다.");
+		for(int i=0; i<num; i++) {
+			System.out.println("x[" + i + "] = " + x[i]);
+		}
+		
+		scan.close();
+	}
+}
+```
+
+## 기수 변환
+
+- 기수의 의미
+ - 기수는 수를 나타내는 데 기초가 되는 수
+
+```
+public class CardConvRev {
+	static int cardConvR(int x, int r, char[] d) {
+		int digits = 0;
+		String dchar = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		
+		do {
+			d[digits++] = dchar.charAt(x % r);
+			x /= r;
+		} while(x != 0);
+		
+		return digits;
+	}
+	
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		int no = 0;
+		int cd = 0;
+		int dno = 0;
+		int retry = 0;
+		char[] cno = new char[32];
+		
+		System.out.println("10진수를 기수 변환합니다.");
+		do {
+			do {
+				System.out.print("변환하는 음이 아닌 정수: ");
+				no = scan.nextInt();
+			}while(no < 0);
+			
+			do {
+				System.out.println("어떤 진수로 변환할까요? (2~36) : ");
+				cd = scan.nextInt();
+			}while(cd < 2 || cd > 36);
+			
+			dno = cardConvR(no, cd, cno);
+			
+			System.out.println(cd + "진수로는 ");
+			for(int i=dno-1; i>=0; i--) {
+				System.out.print(cno[i]);
+			}
+			System.out.println("입니다.");
+			
+			System.out.println("한 번 더 할까요? (1.예/0.아니오) : " );
+			retry = scan.nextInt();
+		}while(retry == 1);
+		
+		scan.close();
+	}
+}
+```
+
+### 소수 나열
+
+- 자신과 1 이외의 정수로 나누어 떨어지지 않는 정수
+- 나누어 떨어지는 정수가 하나 이상 존재하면 그 수는 합성수
+
+```
+public class PrimeNumber1 {
+	public static void main(String[] args) {
+		int counter = 0;
+		
+		for(int n=2; n<=1000; n++) {
+			int i;
+			for(i=2; i<n; i++) {
+				counter++;
+				if(n % i == 0) {
+					break;
+				}
+			}
+			if(n == i) {
+				System.out.println(n);
+			}
+		}
+		
+		System.err.println("나눗셈을 수행한 횟수 : " + counter);
+	}
+}
+```
+
+- 같은 답을 얻는 알고리즘은 하나가 아니다
+- 빠른 알고리즘은 메모리를 많이 요구한다.
+
+
+
+
