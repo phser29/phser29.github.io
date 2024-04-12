@@ -436,5 +436,129 @@ public class PrimeNumber1 {
 - 빠른 알고리즘은 메모리를 많이 요구한다.
 
 
+# 검색 알고리즘
+
+- 선형 검색: 무작위로 늘어놓은 데이터 모임에서 검생르 수행
+
+- 이진 검색: 일정한 규칙으로 늘어놓은 데이터 모임에서 아주 빠른 검색을 수행
+
+- 해시법: 추가, 삭제가 자주 일어나느 데이터 모임에서 아주 빠른 검색을 수행
+	- 체인법: 같은 해시 값의 데이터를 선형 리스트로 연결하는 방법
+	- 오픈 주소법: 데이터를 위한 해시 값이 충돌할 때 재해시하는 방법
+
+## 선형 검색
+
+- 요소가 직선 모양으로 늘어선 배열에서의 검색은 원하는 키 값을 갖는 요소를 만날 때까지 맨 앞부터 순서대로 요소를 검색하는 것 순차 검색이라고도 함
+
+- 배열 검색의 종료 조건
+	- 1. 검색할 값을 발견하지 못하고 배열의 끝을 지나간 경우
+	- 2. 검색할 값과 같은 요소를 발견한 경우
+
+```
+public class SeqSearch {
+	static int seqSearch(int[] a, int n, int key) {
+//		int i = 0;
+//		
+//		while(true) {
+//			if(i == n) {
+//				return -1;
+//			}
+//			if(a[i] == key) {
+//				return i;
+//			}
+//			i++;
+//		}
+		for(int i=0; i<n; i++) {
+			if(a[i] == key) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.print("요솟수: ");
+		int num = scan.nextInt();
+		int[] x = new int[num];
+		
+		for(int i=0; i< num; i++) {
+			System.out.print("x["+i+"] : ");
+			x[i] = scan.nextInt();
+		}
+		
+		System.out.print("검색할 값: ");
+		int ky = scan.nextInt();
+		int idx = seqSearch(x, num, ky);
+		
+		if(idx == -1) {
+			System.out.println("그 값의 요소가 없습니다.");
+		} else {
+			System.out.println(ky +"은(는) x[" +idx+ "]에 있습니다.");
+		}
+		
+		scan.close();
+	}
+}
+```
+
+### 보초법 
+
+- 위 비용을 반으로 줄이는 방법
+
+```
+public class SeqSearchSen {
+	static int seqSearchSen(int[] a, int n, int key) {
+		int i=0;
+		
+		a[n] = 7;
+		
+		while(true) {
+			if(a[i] == key) {
+				break;
+			}
+			i++;
+		}
+		
+		return i == n ? -1 : i;
+	}
+	
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.print("요솟수: ");
+		int num = scan.nextInt();
+		int[] x = new int[num+1]; //보초법으로 인한 마지막 요소 추가
+		
+		for(int i=0; i<num; i++) {
+			System.out.print("x["+i+"] : ");
+			x[i] = scan.nextInt();
+		}
+		
+		System.out.print("검색할 값: ");
+		int ky = scan.nextInt();
+		
+		int idx = seqSearchSen(x, num, ky);
+		
+		if(idx == -1) {
+			System.out.println("그 요소의 값이 없습니다.");
+		} else {
+			System.out.println(ky+"은 x["+idx+"]에 있습니다.");
+		}
+		
+		scan.close();
+	}
+}
+```
+
+## 이진 검색
+
+- 요소가 오름차순 또는 내림차순으로 정렬된 배열에서 검색하는 알고리즘
+
+
+
+
+
 
 
