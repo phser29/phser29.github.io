@@ -556,9 +556,73 @@ public class SeqSearchSen {
 
 - 요소가 오름차순 또는 내림차순으로 정렬된 배열에서 검색하는 알고리즘
 
+```
+public class BinSearch {
+	static int binSearch(int[] a, int n, int key) {
+		int pl = 0;
+		int pr = n - 1;
+		
+		do {
+			int pc = (pl + pr) / 2;
+			if(a[pc]==key) {
+				return pc;
+			} else if(a[pc] < key) {
+				pl = pc + 1;
+			} else {
+				pr = pc - 1;
+			}
+		} while(pl <= pr);
+		
+		return -1;
+	}
+	
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.print("요솟수: ");
+		int num = scan.nextInt();
+		int[] x = new int[num];
+		
+		System.out.println("오름차순으로 입력하세요.");
+		
+		System.out.print("x[0] : ");
+		x[0] = scan.nextInt();
+		
+		for(int i=1; i<num; i++) {
+			do {
+				System.out.print("x["+i+"] : ");
+				x[i] = scan.nextInt();
+			}while(x[i] < x[i-1]);
+		}
+		
+		System.out.print("검색할 값: ");
+		int ky = scan.nextInt();
+		
+		int idx = binSearch(x, num, ky);
+		
+		if(idx == -1) {
+			System.out.println("그 값의 요소가 없습니다.");
+		} else {
+			System.out.println(ky+"은 x["+idx+"]에 있습니다.");
+		}
+		
+		scan.close();
+	}
+}
+```
 
+### 복잡도
 
+- 알고리즘의 성능을 객관적으로 평가하는 기준
+	1. 시간 복잡도 : 실행에 필요한 시간을 평가하는 것
+	2. 공간 복잡도 : 기억 영역과 파일 공간이 얼마나 필요한가 평가한 것
 
+- Arrays.binarySearch
+	1. 이진 검색 메서드를 직접 코딩할 필요가 없다.
+	2. 모든 자료형 배열에서 검색하 수 있다.
 
+```
+
+```
 
 
