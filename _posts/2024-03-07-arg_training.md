@@ -436,5 +436,193 @@ public class PrimeNumber1 {
 - 빠른 알고리즘은 메모리를 많이 요구한다.
 
 
+# 검색 알고리즘
+
+- 선형 검색: 무작위로 늘어놓은 데이터 모임에서 검생르 수행
+
+- 이진 검색: 일정한 규칙으로 늘어놓은 데이터 모임에서 아주 빠른 검색을 수행
+
+- 해시법: 추가, 삭제가 자주 일어나느 데이터 모임에서 아주 빠른 검색을 수행
+	- 체인법: 같은 해시 값의 데이터를 선형 리스트로 연결하는 방법
+	- 오픈 주소법: 데이터를 위한 해시 값이 충돌할 때 재해시하는 방법
+
+## 선형 검색
+
+- 요소가 직선 모양으로 늘어선 배열에서의 검색은 원하는 키 값을 갖는 요소를 만날 때까지 맨 앞부터 순서대로 요소를 검색하는 것 순차 검색이라고도 함
+
+- 배열 검색의 종료 조건
+	- 1. 검색할 값을 발견하지 못하고 배열의 끝을 지나간 경우
+	- 2. 검색할 값과 같은 요소를 발견한 경우
+
+```
+public class SeqSearch {
+	static int seqSearch(int[] a, int n, int key) {
+//		int i = 0;
+//		
+//		while(true) {
+//			if(i == n) {
+//				return -1;
+//			}
+//			if(a[i] == key) {
+//				return i;
+//			}
+//			i++;
+//		}
+		for(int i=0; i<n; i++) {
+			if(a[i] == key) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.print("요솟수: ");
+		int num = scan.nextInt();
+		int[] x = new int[num];
+		
+		for(int i=0; i< num; i++) {
+			System.out.print("x["+i+"] : ");
+			x[i] = scan.nextInt();
+		}
+		
+		System.out.print("검색할 값: ");
+		int ky = scan.nextInt();
+		int idx = seqSearch(x, num, ky);
+		
+		if(idx == -1) {
+			System.out.println("그 값의 요소가 없습니다.");
+		} else {
+			System.out.println(ky +"은(는) x[" +idx+ "]에 있습니다.");
+		}
+		
+		scan.close();
+	}
+}
+```
+
+### 보초법 
+
+- 위 비용을 반으로 줄이는 방법
+
+```
+public class SeqSearchSen {
+	static int seqSearchSen(int[] a, int n, int key) {
+		int i=0;
+		
+		a[n] = 7;
+		
+		while(true) {
+			if(a[i] == key) {
+				break;
+			}
+			i++;
+		}
+		
+		return i == n ? -1 : i;
+	}
+	
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.print("요솟수: ");
+		int num = scan.nextInt();
+		int[] x = new int[num+1]; //보초법으로 인한 마지막 요소 추가
+		
+		for(int i=0; i<num; i++) {
+			System.out.print("x["+i+"] : ");
+			x[i] = scan.nextInt();
+		}
+		
+		System.out.print("검색할 값: ");
+		int ky = scan.nextInt();
+		
+		int idx = seqSearchSen(x, num, ky);
+		
+		if(idx == -1) {
+			System.out.println("그 요소의 값이 없습니다.");
+		} else {
+			System.out.println(ky+"은 x["+idx+"]에 있습니다.");
+		}
+		
+		scan.close();
+	}
+}
+```
+
+## 이진 검색
+
+- 요소가 오름차순 또는 내림차순으로 정렬된 배열에서 검색하는 알고리즘
+
+```
+public class BinSearch {
+	static int binSearch(int[] a, int n, int key) {
+		int pl = 0;
+		int pr = n - 1;
+		
+		do {
+			int pc = (pl + pr) / 2;
+			if(a[pc]==key) {
+				return pc;
+			} else if(a[pc] < key) {
+				pl = pc + 1;
+			} else {
+				pr = pc - 1;
+			}
+		} while(pl <= pr);
+		
+		return -1;
+	}
+	
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.print("요솟수: ");
+		int num = scan.nextInt();
+		int[] x = new int[num];
+		
+		System.out.println("오름차순으로 입력하세요.");
+		
+		System.out.print("x[0] : ");
+		x[0] = scan.nextInt();
+		
+		for(int i=1; i<num; i++) {
+			do {
+				System.out.print("x["+i+"] : ");
+				x[i] = scan.nextInt();
+			}while(x[i] < x[i-1]);
+		}
+		
+		System.out.print("검색할 값: ");
+		int ky = scan.nextInt();
+		
+		int idx = binSearch(x, num, ky);
+		
+		if(idx == -1) {
+			System.out.println("그 값의 요소가 없습니다.");
+		} else {
+			System.out.println(ky+"은 x["+idx+"]에 있습니다.");
+		}
+		
+		scan.close();
+	}
+}
+```
+
+### 복잡도
+
+- 알고리즘의 성능을 객관적으로 평가하는 기준
+	1. 시간 복잡도 : 실행에 필요한 시간을 평가하는 것
+	2. 공간 복잡도 : 기억 영역과 파일 공간이 얼마나 필요한가 평가한 것
+
+- Arrays.binarySearch
+	1. 이진 검색 메서드를 직접 코딩할 필요가 없다.
+	2. 모든 자료형 배열에서 검색하 수 있다.
+
+```
+
+```
 
 
