@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "알고리즘 실습"
+title: "arg_book_review"
 categories: java
 tag: other
 toc: true
@@ -615,14 +615,304 @@ public class BinSearch {
 
 - 알고리즘의 성능을 객관적으로 평가하는 기준
 	1. 시간 복잡도 : 실행에 필요한 시간을 평가하는 것
+		 의해 줄어듬.
+		- O(n) – 직선적 시간 : 문제를 해결하기 위한 단계의 수와 입력값 n이 1:1 관계를 가짐.
+		- O(n log n) : 문제를 해결하기 위한 단계의 수가 N*(log2N) 번만큼의 수행시간을 가진다. (선형로그형)
+		- O(n^2) – 2차 시간 : 문제를 해결하기 위한 단계의 수는 입력값 n의 제곱.
+		- O(C^n) – 지수 시간 : 문제를 해결하기 위한 단계의 수는 주어진 상수값 C 의 n 제곱.- O(1) – 상수 시간 : 문제를 해결하는데 오직 한 단계만 처리함.
+		- O(log n) – 로그 시간 : 문제를 해결하는데 필요한 단계들이 연산마다 특정 요인에
 	2. 공간 복잡도 : 기억 영역과 파일 공간이 얼마나 필요한가 평가한 것
 
-- Arrays.binarySearch
+- Arrays.binarySearch()
 	1. 이진 검색 메서드를 직접 코딩할 필요가 없다.
 	2. 모든 자료형 배열에서 검색하 수 있다.
 
 ```
-
+public class BinarySearchTester {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.print("요솟수: ");
+		int num = scan.nextInt();
+		int[] x = new int[num];
+		
+		System.out.println("오름차순으로 입력하세요.");
+		
+		System.out.print("x[0] : " );
+		x[0] = scan.nextInt();
+		
+		for(int i=1; i<num; i++) {
+			do {
+				System.out.print("x["+i+"] : ");
+				x[i] = scan.nextInt();
+			}while(x[i] < x[i - 1]);
+		}
+		
+		System.out.print("검색할 값 : ");
+		int ky = scan.nextInt();
+		
+		int idx = Arrays.binarySearch(x, ky);
+		
+		if(idx == -1) {
+			System.out.println("그 값의 요소가 없습니다.");
+		} else {
+			System.out.println(ky+"은 x["+idx+"]에 있습니다.");
+		}
+		
+		scan.close();
+	}
+}
 ```
 
+- 인스턴스 메서드 : static을 붙이지 않고 선언한 메서드
+- 클래스 메서드 : static를 붙혀서 선언한 메서드
+	- 클래스 메서드는 클레스 전체에 대한 처리를 담당하며 인스턴스 메서드와 처리 영역을 구분하기 위해 주로 사용
+
+```class Id {
+	private static int counter = 0;
+	private int id;
+	
+	public Id() {
+		id = ++counter;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public static int getCounter() {
+		return counter;
+	}
+}
+ 
+public class IdTester {
+	public static void main(String[] args) {
+		Id a = new Id();
+		Id b = new Id();
+		
+		System.out.println("a의 아이디 : " + a.getId());
+		System.out.println("b의 아이디 : " + b.getId());
+		
+		System.out.println("부여한 아이디의 개수 : " + Id.getCounter());
+	}
+}
+```
+
+- static int binarySearch(Object[] a, Object key)
+	- 자연 정렬이라는 방법으로 요쇼의 대소 관계를 판단
+	- 정수 배열, 문자열 배열에 검색할 때 적당
+
+```
+public class StringBinarySearch {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		
+		String[] x = {
+			"abstract", "assert", "boolean", "break", "byte",
+			"case", "catch", "char", "class", "const",
+			"continue", "default", "do", "double", "else",
+			"enum", "extends", "final", "finally", "float",
+			"for", "goto", "if", "implements", "import",
+			"instanceof", "int", "interface", "long", "native",
+			"new", "package", "private", "protected", "public",
+			"return", "short", "static", "strictfp", "super",
+			"switch", "synchronized", "this", "throw", "throws",
+			"transient", "try", "void", "volatile", "while",
+		};
+		
+		System.out.print("원하는 키워드를 입력하세요 : ");
+		
+		String ky = scan.next();
+		int idx = Arrays.binarySearch(x, ky);
+		
+		if(idx < 0) {
+			System.out.println("해당 키워드가 없습니다.");
+		} else {
+			System.out.println(ky+"은 x["+idx+"]에 있습니다.");
+		}
+		
+		scan.close();
+	}
+}
+```
+
+- static <T> int binarySearch(T[] a, T key, Comparator<? super T> c)
+	- 자연 순서가 아닌 순서로 줄지어 있는 배열에서 검색하거나 자연 순서를 논리적으로 갖지 않는 클래스 배열에서 검색할 때
+
+```
+public class PhysExamSearch {
+	static class PhyscData {
+		private String name;
+		private int height;
+		private double vision;
+
+		public PhyscData(String name, int height, double vision) {
+			this.name = name;
+			this.height = height;
+			this.vision = vision;
+		}
+		
+		@Override
+		public String toString() {
+			return name + " " + height + " " + vision; 
+		}
+		
+		public static final Comparator<PhyscData> HEIGHT_ORDER = new HeightOrderComparator();
+				
+		private static class HeightOrderComparator implements Comparator<PhyscData> {
+			@Override
+			public int compare(PhyscData o1, PhyscData o2) {
+				return (o1.height > o2.height) ? 1 : (o1.height < o2.height) ? -1 : 0;
+			}
+		}
+	}
+	
+	
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		
+		PhyscData[] x = {
+			new PhyscData("이나령", 162, 0.3),
+			new PhyscData("유지훈", 168, 0.4),
+			new PhyscData("김한결", 169, 0.8),
+			new PhyscData("홍준기", 171, 1.5),
+			new PhyscData("전서현", 173, 0.7),
+			new PhyscData("이호연", 174, 1.2),
+			new PhyscData("이수민", 175, 2.0),
+		};
+		
+		System.out.print("몇 cm인 사람을 찾고 있나요? : ");
+		int height = scan.nextInt();
+		int idx = Arrays.binarySearch(x, new PhyscData("", height, 0.0), PhyscData.HEIGHT_ORDER);
+		
+		if(idx < 0) {
+			System.out.println("요소가 없습니다.");
+		} else {
+			System.out.println("x["+idx+"]에 있습니다.");
+			System.out.println("찾은 데이터: " + x[idx]);
+		}
+		
+		scan.close();
+	}
+}
+```
+
+# 스택
+
+- 데이터를 일시적으로 저장하기 위해 사용하는 자료구조로 데이터의 입력과 출력 순서는 후입선출
+
+```
+public class IntStack {
+	private int max;
+	private int ptr;
+	private int[] stk;
+	
+	public class EmptyIntStackException extends RuntimeException {
+		public EmptyIntStackException() {
+		}
+	}
+	
+	public class OverflowIntStackException extends RuntimeException {
+		public OverflowIntStackException() {
+		}
+	}
+	
+	public IntStack(int capacity) {
+		ptr = 0;
+		max = capacity;
+		try {
+			stk = new int[max];
+		}catch (OutOfMemoryError e) {
+			max = 0;
+		}
+	}
+	
+}
+```
+
+- push : 데이터를 넣음
+
+```
+	public int push(int x) throws OverflowIntStackException {
+		if(ptr >= max) {
+			throw new OverflowIntStackException();
+		}
+		return stk[ptr++] = x;
+	}
+```
+
+- pop : 데이터를 꺼넴
+
+```
+public int pop() throws EmptyIntStackException {
+		if(ptr <= 0) {
+			throw new EmptyIntStackException();
+		}
+		return stk[--ptr];
+}
+```
+
+- peek : 스택의 꼭대기에 있는 데이터를 몰래 엿보는 메서드
+
+```
+public int peek() throws EmptyIntStackException {
+		if(ptr <= 0) {
+			throw new EmptyIntStackException();
+		}
+		return stk[ptr - 1];
+}
+```
+
+- indexOf : 스택 본체의 배열 stk에 x와 같은 값의 데이터가 포함되어 있는지, 포함되어 있다면 배열의 어디에 들어 있는지를 조사하는 메서드
+
+```
+public int indexOf(int x) {
+		for(int i=ptr-1; i>=0; i--) {
+			if(stk[i] == x) {
+				return i;
+			}
+		}
+		return -1;
+}
+```
+
+- clear : 스택에 쌓여 있는 모든 데이터를 삭제하는 메서드
+
+```
+public void clear() {
+		ptr = 0;
+}
+```
+
+- capacity : 스택의 용량을 반환하는 메서드
+
+```
+public int capacity() {
+		return max;
+}
+```
+
+- size : 현재 스택에 쌓여 있는 데이터 수를 반환하는 메서드
+
+```
+public int size() {
+		return ptr;
+}
+```
+
+- isEmpty : 스택이 비어 있는지 검사하는 메서드
+
+```
+public boolean isEmpty() {
+		return ptr <= 0;
+}
+```
+
+- isFull : 스택이 가득 찾는지 검사하는 메서드
+
+```
+public boolean isFull() {
+		return ptr >= max;
+}
+```
 
