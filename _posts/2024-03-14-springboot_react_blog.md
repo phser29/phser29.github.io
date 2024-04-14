@@ -42,14 +42,21 @@ module.exports = function(app) {
 - 비밀번호: String
 
 ## response
-- 성공: 코드: su, 메시지: success
+- 성공 
+  - 코드: su 
+  - 메시지: success
 - 실패: 
   - http status - 401 (unauthorized) 코드: sf, message: sign in failed
   - http Status - 500 (Internal Server Error) 
 
-# join (회원가입)
+- 데이터 베이스 에러
+  - Http Status - 400 (Bad Request)
+  - code: "DE"
+  - message: "Datebase Error"
 
-## input
+# signUp (회원가입)
+
+## request
 - email: String
 - password: String
 - nickname: String
@@ -57,9 +64,76 @@ module.exports = function(app) {
 - address: String
 - addressDetail: String
 
+## response
+- 성공
+  - Http status - 200 (ok)
+    - code: "SU"
+    - message: "success"
+    - token: "jwt.."
+    - expireDate
+
+- 이메일 포멧 불일치 / 비밀번호 8자 미만 / 전화번호 포멧 불일치 / 전화번호 포멧 불일치
+
+- 중복 이메일
+  - Http Status - 400 (Bad Request)
+  - code: "EE"
+  - message: "Existed Email."
+
+- 데이터 베이스 에러
+  - Http Status - 400 (Bad Request)
+  - code: "DE"
+  - message: "Datebase Error"
+
 # weeklyTop3 List (주간 상위 3 게시물 리스트)
 
+- response
+
+- 성공
+  - Http Status - 200 (ok)
+    - code: su 
+    - message: success
+    - top3List: BoardListItme[]
+
+- BoardListItem
+  - boardNumber: int
+  - title: String
+  - content: String
+  - boardTitleImage: String
+  - FavoriteCount: int
+  - commentCount: int
+  - viewCount: int
+  - writeDatetime: String
+  - writerNickname: String
+  - writerProfileImage: String
+
+- 실패
+- 데이터 베이스 에러
+  - Http Status - 400 (Bad Request)
+  - code: "DE"
+  - message: "Datebase Error"
+
+
 # currentList (최신 게시물 리스트)
+
+- response
+
+- 성공
+  - Http Status - 200 (ok)
+    - code: su 
+    - message: success
+    - top3List: BoardListItme[]
+
+- BoardListItem
+  - boardNumber: int
+  - title: String
+  - content: String
+  - boardTitleImage: String
+  - FavoriteCount: int
+  - commentCount: int
+  - viewCount: int
+  - writeDatetime: String
+  - writerNickname: String
+  - writerProfileImage: String
 
 # popularWordList (인기 검색어 리스트)
 
