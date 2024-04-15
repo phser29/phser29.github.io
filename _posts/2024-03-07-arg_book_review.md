@@ -985,6 +985,9 @@ public class IntStackTester {
 	- 데이터를 꺼내는 쪽
 
 - 인큐
-
+	- 데이터를 넣는 작업
 - 디큐
+	- 데이터를 꺼내는 작업
+
+
 
