@@ -620,7 +620,8 @@ public class BinSearch {
 		- O(n log n) : 문제를 해결하기 위한 단계의 수가 N*(log2N) 번만큼의 수행시간을 가진다. (선형로그형)
 		- O(n^2) – 2차 시간 : 문제를 해결하기 위한 단계의 수는 입력값 n의 제곱.
 		- O(C^n) – 지수 시간 : 문제를 해결하기 위한 단계의 수는 주어진 상수값 C 의 n 제곱.- O(1) – 상수 시간 : 문제를 해결하는데 오직 한 단계만 처리함.
-		- O(log n) – 로그 시간 : 문제를 해결하는데 필요한 단계들이 연산마다 특정 요인에
+		- O(1) – 상수 시간 : 문제를 해결하는데 오직 한 단계만 처리함.
+		- O(log n) – 로그 시간 : 문제를 해결하는데 필요한 단계들이 연산마다 특정 요인에 의해 줄어듬.
 	2. 공간 복잡도 : 기억 영역과 파일 공간이 얼마나 필요한가 평가한 것
 
 - Arrays.binarySearch()
@@ -915,4 +916,75 @@ public boolean isFull() {
 		return ptr >= max;
 }
 ```
+
+- 출력 예제
+
+```
+public class IntStackTester {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		IntStack s = new IntStack(64);	// 최대 64개를 푸시할 수 있는 스택
+
+		while(true) {
+			System.out.println("현제 데이터 수 : " + s.size() + " / " + s.capacity());
+			System.out.println("(1)푸시 (2)팝 (3)피크 (4)덤프 (0)종료");
+			System.out.print("입력> ");
+			
+			int menu = scan.nextInt();
+			if(menu == 0) {
+				break;
+			}
+			
+			int x;
+			switch (menu) {
+				case 1:
+					System.out.print("데이터: ");
+					x = scan.nextInt();
+					try {
+						s.push(x);
+					} catch (IntStack.OverflowIntStackException e) {
+						System.out.println("스택이 가득 찼습니다.");
+					}
+					break;
+				case 2: 
+					try {
+						x = s.pop();
+						System.out.println("팝한 데이터는 "+x+"입니다.");
+					} catch (IntStack.OverflowIntStackException e) {
+						System.out.println("스택이 가득 찼습니다.");
+					}
+					break;
+				case 3: 
+					try {
+						x = s.peek();
+						System.out.println("피크한 데이터는 " +x+ "입니다.");
+					} catch (IntStack.EmptyIntStackException e) {
+						System.out.println("스택이 비어 있습니다.");
+					}
+					break;
+				case 4: 
+					s.dump();
+					break;
+			}
+			
+		}
+		scan.close();
+	}
+}
+```
+
+# 큐
+
+- 스택과 마찬가지로 데이터를 일시적으로 쌓아 놓은 자료구조
+- 가장 먼저 넣은 데이터를 가장 먼저 꺼내는 선입선출 구조
+
+
+- 리어
+	- 데이터를 넣는 쪽
+- 프런트
+	- 데이터를 꺼내는 쪽
+
+- 인큐
+
+- 디큐
 
