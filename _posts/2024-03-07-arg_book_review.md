@@ -2,7 +2,7 @@
 layout: single
 title: "arg_book_review"
 categories: java
-tag: other
+tag: book_review
 toc: true
 --- 
 
@@ -989,5 +989,7 @@ public class IntStackTester {
 - 디큐
 	- 데이터를 꺼내는 작업
 
+```
 
+```
 
