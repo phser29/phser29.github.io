@@ -834,12 +834,12 @@ public class IntStack {
 - push : 데이터를 넣음
 
 ```
-	public int push(int x) throws OverflowIntStackException {
-		if(ptr >= max) {
-			throw new OverflowIntStackException();
-		}
-		return stk[ptr++] = x;
+public int push(int x) throws OverflowIntStackException {
+	if(ptr >= max) {
+		throw new OverflowIntStackException();
 	}
+	return stk[ptr++] = x;
+}
 ```
 
 - pop : 데이터를 꺼넴
@@ -990,6 +990,261 @@ public class IntStackTester {
 	- 데이터를 꺼내는 작업
 
 ```
+package book.chap03.exam02;
+
+public class IntQueue {
+	private int max;
+	private int front;
+	private int rear;
+	private int num;
+	private int[] que;
+	
+	
+	public class EmptyIntQueueException extends RuntimeException {
+		public EmptyIntQueueException() {
+			
+		}
+	}
+	
+	public class OverflowIntQueueException extends RuntimeException {
+		public OverflowIntQueueException() {
+			
+		}
+	}
+	
+	public IntQueue(int capacity) {
+		num = front = rear = 0;
+		max = capacity;
+		try {
+			que = new int[max];
+		} catch (OutOfMemoryError e) {
+			max = 0;
+		}
+	}
+	
+	public int enque(int x) throws OverflowIntQueueException {
+		if(num >= max) {
+			throw new OverflowIntQueueException();
+		}
+		que[rear++] = x;
+		num++;
+		if(rear == max) {
+			rear = 0;
+		}
+		return x;
+	}
+	
+	public int deque() throws EmptyIntQueueException {
+		if(num <= 0) {
+			throw new EmptyIntQueueException();
+		}
+		int x = que[front++];
+		num--;
+		if(front == max) {
+			front = 0;
+		}
+		return x;
+	}
+	
+	public int peek() throws EmptyIntQueueException {
+		if(num <= 0) {
+			throw new EmptyIntQueueException();
+		}
+		return que[front];
+	}
+	
+	public int indexOf(int x) {
+		for(int i=0; i<num; i++) {
+			int idx = (i+front) % max; 
+			if(que[idx] == x) { // 검색 성공
+				return idx;
+			}
+		}
+		return -1;
+	}
+	
+	public void clear() {
+		num = front = rear = 0;
+	}
+	
+	public int capacity() {
+		return max;
+	}
+	
+	public int size() {
+		return num;
+	}
+	
+	public boolean isEmpty() {
+		return num <= 0;
+	}
+	
+	public boolean isFull() {
+		return num >= max;
+	}
+	
+	public void dump() {
+		if(num <= 0) {
+			System.out.println("큐가 비어있습니다.");
+		} else {
+			for(int i=0; i<num; i++) {
+				System.out.println(que[(i+front) % max] + " ");
+			}
+			System.out.println();
+		}
+	}
+	
+}
+```
+
+- 출력 예제
 
 ```
+package book.chap03.exam02;
+
+import java.util.Scanner;
+
+public class IntQueueTester {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		IntQueue s = new IntQueue(64);
+		
+		while(true) {
+			System.out.println("현재 데이터 수: " + s.size() + " / " + s.capacity());
+			System.out.println("(1)인큐 (2)디큐 (3)피크 (4)덤프 (0)종료");
+			System.out.print("입력> ");
+			
+			int menu = scan.nextInt();
+			if(menu == 0) {
+				break;
+			}
+			
+			int x;
+			switch (menu) {
+				case 1:
+					System.out.print("데이터: ");
+					x = scan.nextInt();
+					try {
+						s.enque(x);
+					} catch (IntQueue.OverflowIntQueueException e) {
+						System.out.println("큐가 가득 찼습니다.");
+					}
+					break;
+				case 2:
+					try {
+						x = s.deque();
+						System.out.println("디큐한 데이터는 "+x+"입니다.");
+					} catch (IntQueue.EmptyIntQueueException e) {
+						System.out.println("큐가 비어 있습니다.");
+					}
+					break;
+				case 3:
+					try {
+						x = s.peek();
+						System.out.println("피크한 데이터는 " +x+ "입니다.");
+					} catch (IntQueue.EmptyIntQueueException e) {
+						System.out.println("큐가 비어 있습니다.");
+					}
+					break;
+				case 4:
+					s.dump();
+					break;
+			}
+		}		
+		
+		scan.close();
+	}
+}
+```
+
+# 재귀적 정의
+
+- 어떤 사건이 자기 자신을 포함하고 다시 자기 자신을 사용하여 정의될 때 
+
+1. 1은 자연수
+2. 자연수 n의 바로 다음 수도 자연수
+
+## 팩토리얼
+
+> n > 0이면 n = n * (n - 1)
+
+```
+public class Factorial {
+	static int factorial(int n) {
+		if(n > 0) {
+			return n * factorial(n - 1);
+		} else {
+			return 1;
+		}
+	}
+	
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.print("정수를 입력하세요: ");
+		int x = scan.nextInt();
+		
+		System.out.println(x+"의 팩토리얼은 " + factorial(x) + "입니다.");
+		
+		scan.close();
+	}
+}
+
+```
+
+## 유클리드 호제법
+
+- 최대공약수를 재귀적으로 구하는 방법
+
+```
+public class EuclidGCD {
+	static int gcd(int x, int y) {
+		if(y == 0) {
+			return x;
+		} else {
+			return gcd(y, x % y);
+		}
+	}
+	
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.println("두 수의 최대 공약수를 구합니다.");
+		
+		System.out.print("정수를 입력하세요 : ");
+		int x = scan.nextInt();
+		System.out.print("정수를 입력하세요 : ");
+		int y = scan.nextInt(); 
+		
+		System.out.println("최대공약수는 " + gcd(x, y) +"입니다.");
+		
+		scan.close();
+	}
+}
+```
+
+## 재귀 분석
+
+```
+public class Recur {
+	static void recur(int n) {
+		if(n > 0) {
+			recur(n - 1);
+			System.out.println(n);
+			recur(n - 2);
+		}
+	}
+	
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.print("정수를 입력하세요 : ");
+		int x = scan.nextInt();
+		
+		recur(x);
+		scan.close();
+	}
+}
+```
+
 

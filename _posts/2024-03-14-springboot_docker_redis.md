@@ -52,7 +52,6 @@ services:
 - spring-boot-starter-data-redis
   - redishash("") 지원
 
-
 ## springboot_shop_setting
 
 - 의존주입

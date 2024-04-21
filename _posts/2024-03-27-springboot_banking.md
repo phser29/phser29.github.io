@@ -8,6 +8,10 @@ toc: true
 
 # spring_banking
 
+# 의존 주입
+
+# ORM
+
 - client table 구조
 - entity로 @Column으로 지정안해도 타입까지 컬럼 생성됨 
 
