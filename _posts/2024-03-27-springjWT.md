@@ -1,11 +1,11 @@
 ---
 layout: single
-title: "springSessionJWT"
+title: "springJWT"
 categories: java
 tag: spring
 toc: true
 ---
 
-# springboot login
+# springboot JWT
 
 
