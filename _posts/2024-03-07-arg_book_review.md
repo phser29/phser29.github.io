@@ -1247,4 +1247,41 @@ public class Recur {
 }
 ```
 
+### 꼬리 재귀 제거(스택)
 
+```
+static void recur(int n) {
+		if(n > 0) {
+			recur(n - 1);
+			System.out.println(n);
+			n = n - 2;
+		}
+	}
+	
+	static void recur(int n) {
+		IntStack s = new IntStack(n);
+		
+		while(true) {
+			if(n > 0) {
+				s.push(n);
+				n = n - 1;
+				continue;
+			}
+			if(s.isEmpty() != true) {
+				n = s.pop();
+				System.out.println(n);
+				n = n - 2;
+				continue;
+			}
+			break;
+		}
+	}
+```
+
+## 하노이의 탑
+
+- 작은 원반이 위에, 큰 원반이 아래에 위치할 수 있도록 원반을 3개의 기둥 사잉에서 옮기는 문제
+
+```
+
+```
