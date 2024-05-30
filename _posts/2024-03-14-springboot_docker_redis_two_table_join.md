@@ -1,15 +1,11 @@
 ---
 layout: single
-title: "springboot_shop_docker_redis"
+title: "2024-03-14-springboot_docker_redis_two_table_join"
 categories: java
 tag: springboot_shop_docker_redis
 toc: true
 ---
  
-# springboot docker, redis 활용
-- 프로젝트 이름: Springboot 쇼핑몰 프로젝트
-- 프로젝트 기술: java, springboot, Mysql, mybatis, jquery, ajax
-- 참고 문헌: 구글, 유트브
 
 ## springboot docker setting
 
