@@ -10,6 +10,10 @@ toc: true
 
 # 의존 주입
 
+```
+
+```
+
 # ORM
 
 - client table 구조
