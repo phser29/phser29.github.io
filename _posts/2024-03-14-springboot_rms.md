@@ -1,8 +1,8 @@
 ---
 layout: single
-title: "springboot_wms"
+title: "springboot_rms"
 categories: java
-tag: springboot_wms
+tag: springboot_rms
 toc: true
 ---
 
@@ -14,7 +14,7 @@ toc: true
 
 ## WMS
 
-- MVP(Minimum Viable Product) : 최소 기능 제품
+- MVP(Minimum Viable Product) : 최소 기능 제품을 만드는 것
 
 ### 물류센터 입출고
 

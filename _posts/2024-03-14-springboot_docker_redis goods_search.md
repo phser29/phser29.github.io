@@ -50,10 +50,7 @@ services:
       - ./redis/data:/data
       - ./redis/conf/redis.conf:/usr/local/conf/redis.conf
 ```
-
-- spring-boot-starter-data-redis
-  - redishash("") 지원
-
+ 
 ## docker redis-cli 사용법
 
 > docker exec -it redis redis-cli
@@ -136,6 +133,9 @@ services:
     ```
 
 ## springboot_shop_setting
+
+- 아키텍쳐
+  - MVP 방식으로 필수 기능들 위주로 구현
 
 ### 의존성 주입
 
