@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "spring join"
+title: "spring shop"
 categories: java
 tag: spring_shop
 toc: true
