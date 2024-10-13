@@ -180,8 +180,9 @@ export default App04;
 
 > const memoizedCallback = useCallback(callback, depsList);
 
-## 사용자 정의 훅
 
-- 여러 컴포넌트에서 필요로 하는 코드와 기능을 재사용하기 위해 사용자 정의 훅을 작성
+
+# modern react Hook
+
 
 

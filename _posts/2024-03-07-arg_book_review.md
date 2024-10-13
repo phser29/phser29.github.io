@@ -438,7 +438,7 @@ public class PrimeNumber1 {
 
 # 검색 알고리즘
 
-- 선형 검색: 무작위로 늘어놓은 데이터 모임에서 검생르 수행
+- 선형 검색: 무작위로 늘어놓은 데이터 모임에서 검 수행
 
 - 이진 검색: 일정한 규칙으로 늘어놓은 데이터 모임에서 아주 빠른 검색을 수행
 
@@ -1277,7 +1277,7 @@ static void recur(int n) {
 	}
 ```
 
-## 하노이의 탑
+### 하노이의 탑
 
 - 작은 원반이 위에, 큰 원반이 아래에 위치할 수 있도록 원반을 3개의 기둥 사잉에서 옮기는 문제
 
@@ -1289,7 +1289,7 @@ import java.util.Scanner;
 public class Hanoi {
 	static void move(int no, int x, int y) {
 		if(no > 1) {
-			move(no-1, x, 6-x-y);
+			move(no-1, x, 6-x-y); // 기둥 번호의 합이 6이고 중간 기중은 6-x-y로 구할 수 있음.
 		}
 		
 		System.out.println("원반 ["+no+"]을"+x+"기둥에서 "+y+"기둥으로 옮김");
@@ -1313,3 +1313,174 @@ public class Hanoi {
 }
 ```
 
+### 8퀀 문제
+
+	- 분할 정복법
+
+```
+package book.chap04.exam02;
+
+public class QueenB {
+  static int[] pos = new int[8];
+
+  static void print() {
+    for(int i=0; i<8; i++) {
+      System.out.printf("%2d", pos[i]);
+    }
+    System.out.println();
+  }
+
+  static void set(int i) {
+    for(int j=0; j<8; j++) {
+      pos[i] = j;
+      if(i == 7) {
+        print();
+      } else {
+        set(i + 1);
+      }
+    }
+  }
+
+  public static void main(String[] args) {
+    set(0);
+  }
+
+}
+```
+
+- 분기 한정법
+
+```
+package book.chap04.exam02;
+
+public class QueenBB {
+  static boolean[] flag = new boolean[8];
+  static int[] pos = new int[8];
+
+  static void print() {
+    for(int i=0; i<8; i++) {
+      System.out.printf("%2d", pos[i]);
+    }
+    System.out.println();
+  }
+
+  static void set(int i) {
+    for(int j=0; j<8; j++) {
+      if(flag[j] == false) {
+        pos[i] = j;
+        if(i == 7) {
+          print();
+        } else {
+          flag[j] =true;
+          set(i + 1);
+          flag[j] = false;
+        }
+      } 
+    }
+  }
+
+  public static void main(String[] args) {
+    set(0);
+  }
+}
+```
+
+## 정렬
+
+- 내부 정렬: 정렬할 모든 데이터를 하나의 배열에 저장할 수 있는 경우에 사용하는 알고리즘
+- 외부 정렬: 정렬할 데이터가 너무 많아서 하나의 매열에 저장할 수 없는 경우에 사용하는 알고리즘
+
+### 정렬 알고리즘 핵심요소
+	> 교환, 선택, 삽입
+
+### 버블 정렬
+
+- 이웃한 두 요소의 대소관계를 비교하여 교환 반복
+
+```
+package book.chap05.exam01;
+
+import java.util.Scanner;
+
+public class BubbleSort {
+
+  static void swap(int[] a, int idx1, int idx2) {
+    int t = a[idx1];
+    a[idx1] = a[idx2];
+    a[idx2] = t;
+  }
+
+  //방법 1
+  // static void bubbleSort(int[] a, int n) {
+  //   for(int i=0; i<n-1; i++) {
+  //     for(int j=n-1; j>i; j--) {
+  //       if(a[j-1] > a[j]) {
+  //         swap(a, j-1, j);
+  //       }
+  //     }
+  //   }
+  // }
+
+  //방법 2
+  // static void bubbleSort(int[] a, int n) {
+  //   for(int i=0; i<n-1; i++) {
+  //     int exchg = 0;
+  //     for(int j=n-1; j>i; j--) {
+  //       if(a[j-1] > a[j]) {
+  //         swap(a, j-1, j);
+  //         exchg++;
+  //       }
+  //       if(exchg == 0) {
+  //         break;
+  //       }
+  //     }
+  //   }
+  // }
+
+  //방법 3
+  static void bubbleSort(int[] a, int n) {
+    int k = 0;
+    while (k < n - 1) {
+      int last = n - 1;
+      for(int j=n-1; j>k; j--) {
+        if(a[j - 1] > a[j]) {
+          swap(a, j-1, j);
+          last = j;
+        }
+        k = last;
+      }
+    }
+  }
+
+  public static void main(String[] args) {
+    Scanner scan = new Scanner(System.in);
+
+    System.out.println("(버블 정렬(버전 1)");
+    System.out.print("요솟수: ");
+    int nx = scan.nextInt();
+    int[] x = new int[nx];
+
+    for(int i=0; i<nx; i++) {
+      System.out.print("x[" +x+ "]: ");
+      x[i] = scan.nextInt();
+    }
+
+    bubbleSort(x, nx);
+
+    System.out.println("오름차순으로 정렬했습니다.");
+    for(int i=0; i<nx; i++) {
+      System.out.println("x[" +i+ "]: " + x[i]);
+    }
+
+    scan. close();
+  }
+}
+```
+
+### 단순 선택 정렬
+
+- 가장 작은 요소부터 선택해 알맞은 위치로 옯겨서 순서대로 정렬하는 알고리즘
+
+```
+
+```
