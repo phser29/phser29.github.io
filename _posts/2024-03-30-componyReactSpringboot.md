@@ -50,7 +50,6 @@ toc: true
 - useNavigate()
   - React-Router를 이용하면 고정된 링크로 이동할 때도 있지만, 대부분은 상황에 따라서 동적으로 데이터를 처리해서 이동하는 경우가 더 많음 이럴땐 <Link>보단 useNavigate()를 활용
 
-
 - createSearchParams()
   - React-Router의 함수를 이용해서 '/todo/modify/xx'로 이동시에 필요한 쿼리스트링을 만듬
 

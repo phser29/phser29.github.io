@@ -1482,5 +1482,283 @@ public class BubbleSort {
 - 가장 작은 요소부터 선택해 알맞은 위치로 옯겨서 순서대로 정렬하는 알고리즘
 
 ```
+package book.chap05.exam01;
 
+import java.util.Scanner;
+
+public class SelectionSort {
+  static void swap(int[] a, int idx1, int idx2) {
+    int t = a[idx1];
+    a[idx1] = a[idx2];
+    a[idx2] = t;
+  }
+  
+static void selectionSort(int[] a, int n) {
+  for(int i=0; i<n-1; i++) {
+    int min = i;
+    for(int j=i+1; j<n; j++) {
+      if(a[j] < a[min]) {
+        min = j;
+      }
+    }
+  }
+}
+
+  public static void main(String[] args) {
+    Scanner scan = new Scanner(System.in);
+
+    System.out.println("단순 선택 정렬");
+    System.out.print("요솟수: ");
+    int nx = scan.nextInt();
+    int[] x = new int[nx];
+
+    for(int i=0; i<nx; i++) {
+      System.out.print("x[" +x+ "]: ");
+      x[i] = scan.nextInt();
+    }
+
+    selectionSort(x, nx);
+
+    System.out.println("오름차순으로 정렬했습니다.");
+    for(int i=0; i<nx; i++) {
+      System.out.println("x[" +i+ "]: " + x[i]);
+    }
+
+
+    scan.close();
+  }
+}
+```
+
+### 단순 삽입 정렬
+
+- 선택한 요소를 그보다 더 앞쪽의 알맞은 위치에 삽입하는 작업을 반복하여 정렬하는 알고리즘
+
+```
+package book.chap05.exam01;
+
+import java.util.Scanner;
+
+public class InsertionSort {
+
+  static void insertionSort(int[] a, int n) {
+    for(int i=1; i<n; i++) {
+      int j;
+      int tmp = a[i];
+      for(j=i; j>0 && a[j-1] > tmp; j--) {
+        a[j] = a[j - 1];
+      }
+      a[j] = tmp;
+    }
+  }
+  
+  public static void main(String[] args) {
+    Scanner scan = new Scanner(System.in);
+
+    System.out.println("단순 삽입 정렬");
+    System.out.print("요솟수: ");
+    int nx = scan.nextInt();
+    int[] x = new int[nx];
+
+    for(int i=0; i<nx; i++) {
+      System.out.print("x[" +i+ "] : ");
+      x[i] = scan.nextInt();
+    }
+
+    insertionSort(x, nx);
+
+    System.out.println("오름차순으로 정렬");
+    for(int i=0; i<nx; i++) {
+      System.out.println("x[" +i+ "]=" + x[i]);
+    }
+
+    scan.close();
+  }
+}
+```
+
+### 셸 정렬
+
+- 단순 삽입 정렬의 장점은 살리고 단점은 보완하여 좀 더 빠르게 정렬하는 알고리즘
+
+```
+package book.chap05.exam02;
+
+import java.util.Scanner;
+
+public class ShellSort {
+
+  static void shellSort(int[] a, int n) {
+    for(int h=n/2; h>0; h/=2) {
+      for(int i=h; i<n; i++) {
+        int j;
+        int tmp = a[i];
+        for(j=i-h; j>=0 && a[j]>tmp; j-=h) {
+          a[j + h] = a[j];
+        }
+        a[j + h] = tmp;
+      }
+    }
+  }
+
+  public static void main(String[] args) {
+    Scanner scan = new Scanner(System.in);
+
+    System.out.println("셀 정렬(버전 1)");
+    System.out.print("요솟수 : ");
+    int nx = scan.nextInt();
+    int[] x = new int[nx];
+
+    for(int i=0; i<nx; i++) {
+      System.out.print("x[" +i+ "] : ");
+      x[i] = scan.nextInt();
+    }
+
+    shellSort(x, nx);
+
+    System.out.println("오름차순으로 정렬");
+    for(int i=0; i<nx; i++) {
+      System.out.print("x[" +i+ "] : " + x[i]);
+    }
+
+    scan.close();
+  }
+}
+```
+
+### 퀵 정렬
+
+- 가장 빠른 정렬 알고리즘 중의 하나
+
+```
+// 피벗 기준
+package book.chap05.exam02;
+
+import java.util.Scanner;
+
+public class Partition {
+  static void swap(int[] a, int idx1, int idx2) {
+    int t = a[idx1];
+    a[idx1] = a[idx2];
+    a[idx2] = t;
+  }
+
+  static void partition(int[] a, int n) {
+    int pl = 0;
+    int pr = n - 1;
+    int x = a[n / 2];
+
+    do{
+      while(a[pl] < x) {
+        pl++;
+      }
+      while(a[pr] > x) {
+        pr--;
+      }
+      if(pl <= pr) {
+        swap(a, pl++, pr--);
+      }
+    }while(pl <= pr);
+
+    System.out.println("피벗의 값은 " +x+ "입니다." );
+
+    System.out.println("피벗 이하의 그룹");
+    for(int i=0; i<=pl - 1; i++ ) {
+      System.out.print(a[i] + " ");
+    }
+    System.out.println();
+    
+    if(pl > pr + 1) {
+      System.out.println("피벗과 일치하는 그룹");
+      for(int i=pr+1; i<=pl-1; i++) {
+        System.out.print(a[i] + " ");
+      }
+      System.out.println();
+    }
+
+    System.out.println("피벗 이상의 그룹");
+    for(int i=pr+1; i<n; i++) {
+      System.out.print(a[i] + " ");
+    }
+    System.out.println();
+  }
+
+  public static void main(String[] args) {
+    Scanner scan = new Scanner(System.in) ;
+    
+    System.out.println("배열을 나눕니다.");
+    System.out.print("요솟수: ");
+    int nx = scan.nextInt();
+    int[] x = new int[nx];
+
+    for(int i=0; i<nx; i++) {
+      System.out.println("x[" + i + "] : ");
+      x[i] = scan.nextInt();
+    }
+
+    partition(x, nx);
+    scan.close();
+  }
+}
+```
+```
+package book.chap05.exam02;
+
+import java.util.Scanner;
+
+public class QuickSort {
+  static void swap(int[] a, int idx1, int idx2) {
+    int t = a[idx1];
+    a[idx1] = a[idx2];
+    a[idx2] = t;
+  }
+
+  static void quickSort(int[] a, int left, int right) {
+    int pl = left;
+    int pr = right;
+    int x = a[(pl+pr) / 2];
+
+    do{
+      while(a[pl] < x) {
+        pl++;
+      }
+			while(a[pr] > x) {
+        pr--;
+      }
+      if(pl <= pr) {
+        swap(a, pl++, pr--);
+      }
+    }while(pl <= pr);
+
+    if(left < pr) {
+      quickSort(a, left, pr);
+    }
+    if(pl < right) {
+      quickSort(a, pl, right);
+    }
+  }
+
+  public static void main(String[] args) {
+    Scanner scan = new Scanner(System.in);
+
+    System.out.println("퀵 정렬");
+    System.out.print("요솟수: ");
+    int nx = scan.nextInt();
+    int[] x = new int[nx]; 
+
+    for(int i=0; i<nx; i++) {
+      System.out.print("x{" +i+ "} : ");
+      x[i] = scan.nextInt();
+    }
+
+    quickSort(x, 0, nx -1);
+
+    System.out.println("오름차순 정렬");
+    for(int i=0; i<nx; i++) {
+      System.out.println("x[" + i + "] = " + x[i]);
+    }
+
+    scan.close();
+  }
+}
 ```

@@ -35,13 +35,13 @@ module.exports = function(app) {
 };
 ```
 
-# login(로그인), 
+## login (로그인)
 
-## request 
-- 이메일주소: String
-- 비밀번호: String
+### request
+- email: String
+- password: String
 
-## response
+### response
 - 성공 
   - 코드: su 
   - 메시지: success
@@ -54,9 +54,9 @@ module.exports = function(app) {
   - code: "DE"
   - message: "Datebase Error"
 
-# signUp (회원가입)
+## signUp (회원가입)
 
-## request
+### request
 - email: String
 - password: String
 - nickname: String
@@ -64,7 +64,7 @@ module.exports = function(app) {
 - address: String
 - addressDetail: String
 
-## response
+### response
 - 성공
   - Http status - 200 (ok)
     - code: "SU"
@@ -84,7 +84,7 @@ module.exports = function(app) {
   - code: "DE"
   - message: "Datebase Error"
 
-# weeklyTop3 List (주간 상위 3 게시물 리스트)
+## weeklyTop3 List (주간 상위 3 게시물 리스트)
 
 - response
 
@@ -113,7 +113,7 @@ module.exports = function(app) {
   - message: "Datebase Error"
 
 
-# currentList (최신 게시물 리스트)
+## currentList (최신 게시물 리스트)
 
 - response
 
@@ -135,30 +135,30 @@ module.exports = function(app) {
   - writerNickname: String
   - writerProfileImage: String
 
-# popularWordList (인기 검색어 리스트)
+## popularWordList (인기 검색어 리스트)
 
-# searchList (검색 게시물 리스트)
+## searchList (검색 게시물 리스트)
 
-# relativeWordList (관련 검색어 리스트)
+## relativeWordList (관련 검색어 리스트)
 
-# boardDetail (게시물 상세 보기)
+## boardDetail (게시물 상세 보기)
 
-# favoriteList (좋아요 리스트)
+## favoriteList (좋아요 리스트)
 
-# putFavorite (좋아요 기능)
+## putFavorite (좋아요 기능)
 
-# commentList (댓글 리스트)
+## commentList (댓글 리스트)
 
-# postComment (댓글 쓰기)
+## postComment (댓글 쓰기)
 
-# boardDelete (댓글 삭제)
+## boardDelete (댓글 삭제)
 
-# boardWrite (게시물 쓰기)
+## boardWrite (게시물 쓰기)
 
-# boardUpdate (게시물 수정)
+## boardUpdate (게시물 수정)
 
-# getUser (유저 정보)
+## getUser (유저 정보)
 
-# userBoardList (특정 유저 게시물 리스트)
+## userBoardList (특정 유저 게시물 리스트)
 
-# getFile (파일 불러오기)
+## getFile (파일 불러오기)

@@ -31,12 +31,14 @@ toc: true
     - 자동 실행, 자체 결과를 확인하고 즉각적인 피드백을 제공
 
 - 어노테이션
+    - @DisplayName : 테스트 이름을 명시
     - @BeforAll : 전체 테스트를 시작하기 전에 처음으로 한 번만 실행
     - @BeforeEach : 테스트 케이스를 시작하기 전에 매번 실행
     - @AfterAll : 전체 테스트를 마치고 종료하기 전에 한 번만 실행, 전체 테스트 실행 주기에서 한번만 호출되어야 하므로 메서드를 static으로 선언해야 함.
     - @AfterEach : 각 테스트 케이스를 종료하기 전 매번 실행
 
 -  AssertJ
+    - JUnit과 함께 사용해 검증문의 가독성을 확 높여주는 라이브러리
     - assertThat()
         - isEqualTo() : A값과 같은지 검증
         - isNotEqualTo() : A값과 다른지 검증
@@ -49,6 +51,12 @@ toc: true
         - isNegative() : 음수인지 검증
         - isGreaterThan() : 1보다 큰 값인지 검증
         - isLessThan() : 1보다 작은 값인지 검증
+
+
+### Mockito
+
+- @AutoConfigureMockMvc
+    - MockMvc 자도응로 구성
 
 
 
