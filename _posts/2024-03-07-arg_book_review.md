@@ -2,7 +2,7 @@
 layout: single
 title: "arg_book_review"
 categories: java
-tag: book_review
+tag: review
 toc: true
 --- 
 
