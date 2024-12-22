@@ -1,12 +1,10 @@
 ---
 layout: single
-title: "next.js_shop_product"
+title: "reactRedux"
 categories: javaScript
-tag: next.js_shop
+tag: react
 toc: true
 ---
 
-# board
-
-
+# react Redux
 
