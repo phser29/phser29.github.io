@@ -20,6 +20,9 @@ toc: true
 - 비밀번호: String
 
 ### response
+- 성공
+  - 코드: ok
+  
 
 ## signUp (회원가입)
 
@@ -32,7 +35,7 @@ toc: true
 
 ### response
 - 성공
-  - 코드: su
+  - 코드: ok
   - 메시지: success
 - 실패
   - http status - 401(unauthorized)
