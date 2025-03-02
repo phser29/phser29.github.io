@@ -53,6 +53,48 @@ toc: true
 - createSearchParams()
   - React-Router의 함수를 이용해서 '/todo/modify/xx'로 이동시에 필요한 쿼리스트링을 만듬
 
+### axios
+
+```
+import axios from 'axios';
+
+export const API_SERVER_HOST = 'http://localhost:8181';
+
+const prefix = `${API_SERVER_HOST}/api/todo`;
+
+export const getOne = async (tno) => {
+  const res = await axios.get(`${prefix}/${tno}` );
+  return res.data;
+}
+
+export const getList = async (pageParam) => {
+  const {page, size}  = pageParam;
+  const res = await axios.get(`${prefix}/list`, {params: {page:page, size:size}});
+  return res.data;
+}
+```
+
+### useEffect()
+
+- 컴포넌트 내에 특정한 상황을 만족하는 경우에만 특정한 동작을 수행
+- 컴포넌트 실행 과정에서 한 번만 실행해야 하는 비동기 처리
+- 컴포넌트의 여러 상태 중에서 특정한 상태만 변경되었을 경우에 비동기 처리
+
+```
+  const [todo, setTodo] = useState(initState);
+  const {moveToList} = useCustomMove()
+
+  useEffect(() => {
+    getOne(tno).then(data => {
+      console.log(data);
+      setTodo(data);
+    })
+  }, [tno])
+```
+
+### 커스텀 훅
+
+
 
 ## Springboot
 

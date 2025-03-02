@@ -8,6 +8,16 @@ toc: true
 
 # java springboot
 
+## DI(Dependency Injection)
+
+  -  소프트웨어 개발에서 중요한 개념, 컴포넌트 간의 의존성을 외부에서 주입함으로써 느슨한 결합을 유지하는 방법
+
+## IOC 컨테이너
+
+  - Inversion of Control(제어의 역전) 컨테이너로 스프링 프레임워크의 핵심, 애플리케이션의 구성요소들을 관리하며, 객체의 생성과 의존성 주입을 담당
+
+### 빈 정의 
+- 개발자가 스프링 IOC 컨테이너에 의해 관리될  객체에 대한 정보를 제공하는 것 
 
 ## JPA
 
@@ -102,3 +112,5 @@ toc: true
 
 > null을 효율적 관리가능한 문법 Optional<>
 
+- RestTemplate 
+  - Spring 애플리케이션에서 일반적으로 
