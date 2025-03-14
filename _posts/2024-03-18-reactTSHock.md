@@ -182,7 +182,4 @@ export default App04;
 
 
 
-# modern react Hook
-
-
 
