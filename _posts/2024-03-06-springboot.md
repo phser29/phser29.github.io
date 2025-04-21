@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "springboot"
-categories: spring
+categories: java
 tag: spring
 toc: true
 --- 
@@ -44,52 +44,11 @@ toc: true
   ### 의존성 자동주입
   > 객체 간의 관계를 설정하고, 한 객체가 다른 객체를 필요로 할 때, 컨테이너가 자동으로 필요한 객체를 주입하는 메커니즘을 의미
 
-  
+  - @Autowired: 의존성 주입을 자동으로 처리하는 어노테이션
+- @Qualigier("빈이름"): 여러 개의 동일한 타입의 빈 중 특정 빈을 지정하여 주입할 때 사용하는 어노테이션
+- @Component("빈이름"): 해당 클래스를 스프링 빈으로 등록하고, 빈의 이름을 명시적으로 지정하는 어노테이션. 이는 다른 ```@Component``` 어노테이션의 기반이 됨.
 
-## JPA
-
-- yml h2 DB 설정
-```
-  datasource:
-    url: jdbc:h2:mem:testdb
-  h2:
-    console:
-      enabled: true
-```
-
-- 직열화
-  - 자바 시스템 내부에서 사용되는 개체를 외부에서 사용하도록 데이터를 변환하는 작업
-- 역직렬화
-  - 외부에서 사용하는 데이터를 자바의 객체 형태로 변환하는 작업
-
-- given-when-then
-  - Given : 블로그 글 추가에 필요한 요청 객체를 만듬 
-  - When : 블로그 글 추가 API에 요청을 보냅니다. 이때 요청은 JSON이며 given젤에서 미리 만들어 둔 객체를 요청 본문으로 함께 보냄
-  - Then : 응답 코드가 201인지 확인 Blog를 전체 조회해 크기가 1인지 확인하고,  실제로 저장된 데이터와 요청 값을 비교
-
-## 영속성 컨텍스트
-> JPA의 중요한 특징 중 하나로, 엔티티를 관리하는 가상의 공간
-
-- 1차 케시
-- 쓰기 지연
-- 변경 감지
-- 지연 로딩
-
-=======
-## JPA 설정
-
-- spring.jpa.hibernate.ddl-auto 설정
-  - create : 기존 테이블 삭제 후 다시 생성(DROP + UPDATE)
-  - create-drop : create와 같으나 종료 시점에 테이블 DROP
-  - update : 변경분만 반영(개발 환경에서만 사용할 것)
-  - validate : 엔티티와 테이블이 정상적인지만 확인
-  - none : DDL 처리에 관여하지 않음
-
-- spring.jpa.properties.hibernate.format_sql=true
-  - 스프링 부트가 실행되면서 사용하는 SQL들의 포맷팅을 의미하는데 true인 경우 줄바꿈 처리가 되서 알아보기 쉬움
-
-- spring.jpa.show-sql=true
-  - 실행 과정에서 만들어지는 SQL을 출력할 것인지를 의미
+- ```@Pathvariable```을 사용시 2버전에선 굳이 명시하지 않아도 인식을 했으나 3버전부턴 명시해야함. 
 
 # JWT
 
@@ -120,6 +79,12 @@ toc: true
 
 > @EnableJpaAuditing //날짜 자동 업뎃
 
+
+# HTTP 요청 메시지
+
+- HTTP 메시지의 헤더 정보에는 요청하는 리소스의 타입, 길이, 인코딩 방식 등의 정보가 포함될 수 있음.
+- JAVA에서는 HttpURLConnection 클래스를 사용하여 HTTP 요청을 보낼 수 있음
+
 ## REST 방식
 
 - 인터페이스 일관성 - 외부에서 호출 가능한 인터페이스가 제공되어야 함
@@ -137,4 +102,11 @@ toc: true
 > null을 효율적 관리가능한 문법 Optional<>
 
 - RestTemplate 
-  - Spring 애플리케이션에서 일반적으로 
+  - Spring에서 제공하는 간단한 HTTP 통신을 위한 클래스
+
+- WebClient
+  - 비동기적이고 리액티브한 방식으로 HTTP 요청을 보낼 수 있는 라이브러리
+
+
+# 스프링 부트 3 
+

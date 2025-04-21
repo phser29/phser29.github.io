@@ -2,7 +2,7 @@
 layout: single
 title: "springboot shop"
 categories: java
-tag: springboot_shop
+tag: spring
 toc: true
 ---
 
