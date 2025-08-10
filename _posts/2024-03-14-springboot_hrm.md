@@ -2,7 +2,7 @@
 layout: single
 title: "springboot_HRM"
 categories: java
-tag: springboot_rms
+tag: spring
 toc: true
 ---
 

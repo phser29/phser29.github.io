@@ -2,7 +2,7 @@
 layout: single
 title: "springboot shop"
 categories: java
-tag: springboot_shop
+tag: spring
 toc: true
 ---
 
@@ -20,6 +20,17 @@ toc: true
 - 비밀번호: String
 
 ### response
+- 성공
+  - 코드: ok
+- 실패
+  - http status - 401(unauthorized)
+  코드: sf, message: sign in failed
+  - Http Status - 500 (Internal Server Error)
+
+- DataBase Error
+  - Http Status - 400 (Bad Request)
+  - code: "DE"
+  - message: "Datebase Error"
 
 ## signUp (회원가입)
 
@@ -32,7 +43,7 @@ toc: true
 
 ### response
 - 성공
-  - 코드: su
+  - 코드: ok
   - 메시지: success
 - 실패
   - http status - 401(unauthorized)
@@ -44,3 +55,4 @@ toc: true
   - code: "DE"
   - message: "Datebase Error"
 
+## adminBook (도서추가)
