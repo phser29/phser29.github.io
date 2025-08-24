@@ -134,7 +134,49 @@ module.exports = function(app) {
   - writerNickname: String
   - writerProfileImage: String
 
+- 실패
+
+- 데이터베이스 에러
+```
+Http Status - 500 (Internal Server Error)
+{
+  code: "DE",
+  message: "Database Error"
+}
+```
+
 ## popularWordList (인기 검색어 리스트)
+
+- response
+
+- 성공
+  - Http Status - 200 (ok)
+    - code: su
+    - message: success
+    - top3List: BoardListItme[]
+
+- BoardListItem
+  - boardNumber: int
+  - title: String
+  - content: String
+  - boardTitleImage: String
+  - FavoriteCount: int
+  - commentCount: int
+  - viewCount: int
+  - writeDatetime: String
+  - writerNickname: String
+  - writerProfileImage: String
+
+- 실패
+
+- 데이터베이스 에러
+```
+Http Status - 500 (Internal Server Error)
+{
+  code: "DE",
+  message: "Database Error"
+}
+```
 
 ## searchList (검색 게시물 리스트)
 
