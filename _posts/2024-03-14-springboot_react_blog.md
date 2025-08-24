@@ -112,7 +112,6 @@ module.exports = function(app) {
   - code: "DE"
   - message: "Datebase Error"
 
-
 ## currentList (최신 게시물 리스트)
 
 - response

@@ -70,8 +70,3 @@ services:
 
 > docker exec -it redis redis-cli
 
-## springboot_shop_setting
-
-### 의존성 주입
-
-- 
