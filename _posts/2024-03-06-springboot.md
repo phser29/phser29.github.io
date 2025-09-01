@@ -92,14 +92,6 @@ toc: true
 - 작업을 요청할 때, 그 작업이 즉시 완료되지 않더라도 현재 작업을 멈추지 않고 다른 작업을 계속할 수 있는 방식
 - 작업이 완료될 때까지 기다리지 않고 바로 다음 작업을 수행할 수 있음
 
-## JWT
-
-- '인증 및 권한'과 관련된 정보를 안전하게 전달하기 위한 JSON 형식의 암호화된 문자열
-- 헤더, 페이로드, 시그니쳐로 구성
-  - 헤더에 토큰의 종류와 암호화 알고리즘
-  - 페이로드에는 전송할 정보
-  - 시그니쳐에 헤더와 페이로드를 검증하기 위한 정보를 저장
-
 ## Thymeleaf
 
 ### 표현식
@@ -233,8 +225,381 @@ mybatis.mapper-locations=classpath:mapper/*.xml
 </mapper>
 ```
 
+- useGeneratedKeys와 keyProperty 속성을 설정하여, insert 실행 후에 자동으로 증가된 키 값을 자겨올 수 있음
+    > ```<insert id="insert" useGeneratedKeys="true" keyProperty="no">```
+
+
 ## JPA
 
 - Java Persistence API의 약자로 자바의 ORM(Object Relational Mapping) 표준 스펙을 저dml
 - JPA의 스펙은 자바의 객체와 데이터베이스를 어떻게 매핑하고 동작해야 하는지를 정의하고 있음
+
+### 영속성 컨테스트
+
+- JPA가 관리하는 엔티티 객체의 집합
+- 엔티티 객체가 영속 컨텍스트에 들어오게 되면  JPA는 엔티티 객체의 매핑 정보를 가지고 DB에 반영함
+- 엔티티 객체가 영속 컨텍스트에 들어오게 들어오게 되어 관리 대상이 되면 그 객체를 영속 객체라고 부름
+
+
+## JWT
+
+- '인증 및 권한'과 관련된 정보를 안전하게 전달하기 위한 JSON 형식의 암호화된 문자열
+- 헤더, 페이로드, 시그니쳐로 구성
+  - 헤더에 토큰의 종류와 암호화 알고리즘
+  - 페이로드에는 전송할 정보
+  - 시그니쳐에 헤더와 페이로드를 검증하기 위한 정보를 저장
+
+### 구현
+
+- 인증 : 로그인
+- 인가 : JWT를 통한 경로별 접근 권한
+- 회원가입
+
+### JWT 인증 방식 시큐리티 동작 원리
+
+- 회원가입 : 내부 회원 가입 로직은 세션 방식과 JWT 방식의 차이가 없다. 
+- 로그인(인증) : 로그인 요청을 받은 후 세션 방식은 서버 세션이 유저 정보를 저장하지만 JWT 방식은 토큰을 생성하여 응답
+- 경로 접근(인가) : JWT Filter를 통해 요청의 헤더에서 JWT를 찾아 검증을 하고 일시적 요청에 대한 Session을 생성
+
+### JWT 필수 의존성
+
+- JWT 토큰을 생성하고 관리하기 위해 JWT 의존성을 필수적으로 설정해야 함
+
+- build.gradle 의존 설정
+- 대부분 0.11.5로 구현이 되있지만 최신버전으로 진행
+```
+	implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
+```
+
+## Security
+
+### SecurityConfig
+
+```
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+  // 패스워드 암호화
+  @Bean
+  public BCryptPasswordEncoder bCryptPasswordEncoder() {
+    return new BCryptPasswordEncoder();
+  } 
+
+  // HTTP 접근 설정
+  @Bean
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+    http.csrf((auth) -> auth.disable());
+    http.formLogin((auth) -> auth.disable());
+    http.httpBasic((auth) -> auth.disable());
+
+    http.authorizeHttpRequests(((auth) -> auth
+        .requestMatchers("/login", "/", "join").permitAll()
+        .requestMatchers("/admin").hasRole("ADMIN")
+        .anyRequest().authenticated()
+        ));  
+    
+    http.sessionManagement((session) -> session
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)); 
+    return http.build();
+  } 
+}
+```
+
+* 생성자를 주입받아서 데이터를 연결
+```
+package org.zerock.jwt.service;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.zerock.jwt.dto.JoinDTO;
+import org.zerock.jwt.repository.UserRepository;
+
+@Service
+public class JoinService {
+
+  private final UserRepository userRepository;
+
+  private final BCryptPasswordEncoder passwordEncoder;
+
+  public JoinService(UserRepository userRepository, BCryptPasswordEncoder bpasswordEncoder) {
+      this.userRepository = userRepository;
+      this.bpasswordEncoder = bpasswordEncoder;
+  }  
+
+  public void joinProcess(JoinDTO dto) {
+    String username = dto.getUsername();
+    String password = dto.getPassword();
+
+    Boolean isExist = userRepository.existsByUsername(username);
+    if (isExist) {
+      return;
+    }
+
+    UserEntity data = new UserEntity();
+    data.setUsername(username);
+    // 패스워드 암호화 주입
+    data.setPassword(bpasswordEncoder.encode(password));
+    data.setRole("ROLE_ADMIN");
+
+    userRepository.save(data);
+  }
+
+}
+```
+
+### 스프링 시큐리티 필터 동작 원리
+
+- 클라이언트의 요청이 여려개의 필터를 거쳐 DispatcherServlet으로 향하는 중간 필터에서 요청을 가로챈 후 검증을 진행
+
+  - 클라이트 요청 -> 서블릿 필터 -> 서블릿 (컨트롤러)
+  - Delegating Filter Proxy : 서블릿 컨테이너에 존재하는 필터 체인에 DelegatingFilter를 등록한 뒤 모든 요청을 가로챈다.
+    - Servlet <-> Filter <-> DelegatingFilterProxy(Bean Filter) <-> Client
+
+  - 서블릿 필터 체인의 DelegatingFilter - Security 필터 체인 (내부 처리 후) -> 서블릿 필터 체인의 DlelegatingFilter 
+
+  - Servlet <-> Filter <-> DelegatingFilterProxy(Bean Filter) <-> Client   ---->> SecurityFilterChain(/api/**)
+
+- security config
+```
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+  private final AuthenticationConfiguration authenticationConfiguration;
+
+  public SecurityConfig(AuthenticationConfiguration authenticationConfiguration) {
+    this.authenticationConfiguration = authenticationConfiguration;
+  }
+
+  @Bean
+  AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+    return configuration.getAuthenticationManager();
+  }
+
+  @Bean
+  public BCryptPasswordEncoder bCryptPasswordEncoder() {
+    return new BCryptPasswordEncoder();
+  } 
+
+  @Bean
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+    http.csrf((auth) -> auth.disable());
+    http.formLogin((auth) -> auth.disable());
+    http.httpBasic((auth) -> auth.disable());
+
+    //인가 설정
+    http.authorizeHttpRequests(((auth) -> auth
+        .requestMatchers("/login", "/", "join").permitAll()
+        .requestMatchers("/admin").hasRole("ADMIN")
+        .anyRequest().authenticated()
+        )); 
+    
+    http.addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration)), UsernamePasswordAuthenticationFilter.class);
+
+    http.sessionManagement((session) -> session
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)); 
+    return http.build();
+  } 
+}
+```
+
+### 로그인 요청 받기 : 커스텀 UsernamePasswordAuthentication
+
+- 로그인 필터
+```
+public class LoginFilter extends UsernamePasswordAuthenticationFilter {
+
+  private final AuthenticationManager authenticationManager;
+
+  public LoginFilter(AuthenticationManager authenticationManager) {
+    this.authenticationManager = authenticationManager;
+  }
+
+  @Override
+  public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
+      throws AuthenticationException {
+    
+    String username = obtainUsername(request);
+    String password = obtainPassword(request);
+
+    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password);
+
+    return authenticationManager.authenticate(authToken);
+  }
+
+  @Override
+  protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
+      Authentication authResult) throws IOException, ServletException {
+
+    super.successfulAuthentication(request, response, chain, authResult);
+  }
+
+  @Override
+  protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+      AuthenticationException failed) throws IOException, ServletException {
+        
+    super.unsuccessfulAuthentication(request, response, failed);
+  }
+}
+```
+
+### DB기반 로그인 검증 로직
+
+```
+public interface UserRepository extends JpaRepository<UserEntity, Integer> {
+  
+  Boolean existsByUsername(String username);
+  
+  // username을 받아 DB 테이블에서 회원을 조회하는 메소드 작성
+  UserEntity findByUsername(String username);
+
+} 
+```
+
+- UserDetailsService 커스텀 구현
+```
+@Service
+public class CustomUserDetailsService implements UserDetailsService  {
+
+  private final UserRepository userRepository;
+
+  public CustomUserDetailsService(UserRepository userRepository) {
+    this.userRepository = userRepository;
+  }
+
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+   
+    UserEntity userData = userRepository.findByUsername(username);
+    
+    if(userData != null) {
+      return new CustomUserDetails(userData);
+    }
+    
+    return null;
+  }
+}
+```
+
+
+- CustomUserDetails
+```
+public class CustomUserDetails implements UserDetails {
+
+  private final UserEntity userEntity;
+
+  public CustomUserDetails(UserEntity userEntity) {
+    this.userEntity = userEntity;
+  }
+
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+
+    Collection<GrantedAuthority> collectors = new java.util.ArrayList<>();
+    collectors.add( new GrantedAuthority() {
+      @Override
+      public String getAuthority() {
+
+        return userEntity.getRole();
+      }
+    });
+
+    return collectors;
+  }
+
+  @Override
+  public String getPassword() {
+
+    return userEntity.getPassword();
+  }
+
+  @Override
+  public String getUsername() {
+  
+    return userEntity.getUsername(); 
+  }
+
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return true;
+  }
+}
+```
+
+### JWT 발급 및 검증 클래스
+
+- JWT 발급과 검증
+  - 로그인시 -> 성공 -> JWT 발급
+  - 접근시 -> JWT 검증
+
+
+- JWT는 Header, Payload, Signature  구조
+  - Header
+    - JWT임을 명시
+    - 사용된 암호화 알고리즘
+  - Payload
+    - 정보
+  - Signature
+    - 암호화알고리즘(BASE64(Header)) + (BASE64(Payload)) + 암호화키
+
+
+#### JWT 암호화 방식
+
+- 암호화 종류
+  - 양방향
+    - 대칭키 : 이 프로젝트는 양방향 대칭키 방식 사용 : HS256
+    - 비대칭키
+
+#### 암호화 키 저장
+
+- 암호화 키는 하드코딩 방식으로 구현 내부에 탑재하는 것을 지양하기 떄문에 변수 설정 파일에 저장
+
+- application.properties
+```
+spring.jwt.secret=vmfhaltmskdlstkfkdgodyroqkfwkdbalaaaaaaaaaaaaaaaabbbbb
+```
+
+#### JWTUtil
+- 토큰 Payload에 저장될 정보
+  - 
+
+## springboot db 연동
+
+### DB 연동
+
+```
+spring.datasource.url=jdbc:mysql://localhost:3306/jwt
+spring.datasource.username=root
+spring.datasource.password=1234
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+```
+
+### Hibernate 설정
+
+```
+spring.jpa.hibernate.ddl-auto=none
+spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+```
+
+
 
