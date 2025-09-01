@@ -120,7 +120,7 @@ module.exports = function(app) {
   - Http Status - 200 (ok)
     - code: su 
     - message: success
-    - top3List: BoardListItme[]
+    - currentList: BoardListItme[]
 
 - BoardListItem
   - boardNumber: int
@@ -150,10 +150,31 @@ Http Status - 500 (Internal Server Error)
 - response
 
 - 성공
+  - Http Status - 200 (OK)
+    - code: "SU",
+    - message: "Success",
+    - popularWordList: String[]
+  
+- 실패
+
+- 데이터베이스 에러
+```
+Http Status - 500 (Internal Server Error)
+{
+  code: "DE",
+  message: "Database Error"
+}
+```
+
+## boardDetail (게시물 상세 보기)
+
+- response
+
+- 성공
   - Http Status - 200 (ok)
     - code: su
     - message: success
-    - top3List: BoardListItme[]
+    - searchLis: BoardListItme[]
 
 - BoardListItem
   - boardNumber: int
@@ -178,11 +199,30 @@ Http Status - 500 (Internal Server Error)
 }
 ```
 
-## searchList (검색 게시물 리스트)
-
 ## relativeWordList (관련 검색어 리스트)
 
-## boardDetail (게시물 상세 보기)
+- response
+
+- 성공
+  - Http Status - 200 (OK)
+    - code: "SU",
+    - message: "Success",
+    - relativeWordList: String[]
+  
+- 실패
+
+- 데이터베이스 에러
+```
+Http Status - 500 (Internal Server Error)
+{
+  code: "DE",
+  message: "Database Error"
+}
+```
+
+## boardDetail (게시물 상세)
+
+
 
 ## favoriteList (좋아요 리스트)
 
@@ -201,5 +241,59 @@ Http Status - 500 (Internal Server Error)
 ## getUser (유저 정보)
 
 ## userBoardList (특정 유저 게시물 리스트)
+
+## searchList (검색 게시물 리스트)
+
+- response
+
+- 성공
+  - Http Status - 200 (ok)
+    - code: su
+    - message: success
+    - searchLis: BoardListItme[]
+
+- BoardListItem
+  - boardNumber: int
+  - title: String
+  - content: String
+  - boardTitleImage: String
+  - FavoriteCount: int
+  - commentCount: int
+  - viewCount: int
+  - writeDatetime: String
+  - writerNickname: String
+  - writerProfileImage: String
+
+- 실패
+
+- 데이터베이스 에러
+```
+Http Status - 500 (Internal Server Error)
+{
+  code: "DE",
+  message: "Database Error"
+}
+```
+
+## relativeWordList (관련 검색어 리스트)
+
+- response
+
+- 성공
+  - Http Status - 200 (OK)
+    - code: "SU",
+    - message: "Success",
+    - relativeWordList: String[]
+  
+- 실패
+
+- 데이터베이스 에러
+```
+Http Status - 500 (Internal Server Error)
+{
+  code: "DE",
+  message: "Database Error"
+}
+```
 
 ## getFile (파일 불러오기)
